@@ -88,6 +88,12 @@ int main(int argc, char *argv[]) {
         ;
       commit_lat.push_back(node->CommitLatency(pr.propose_index));
     }
+
+    // print out the results
+    uint64_t lat_sum = 0;
+    std::for_each(commit_lat.begin(), commit_lat.end(), [&](const auto &d) { lat_sum += d; });
+    printf("Average Commit Latency: %lu us\n", lat_sum / commit_lat.size());
+
     printf("Proposing and committing is done\n");
   } else {
     // Throttle the disk bandwidth
@@ -95,10 +101,6 @@ int main(int argc, char *argv[]) {
       node->ThrottleDiskBandwidth(FLAGS_disk);
     }
   }
-
-  uint64_t lat_sum = 0;
-  std::for_each(commit_lat.begin(), commit_lat.end(), [&](const auto &d) { lat_sum += d; });
-  printf("Average Commit Latency: %lu us\n", lat_sum / commit_lat.size());
 
   std::cout << "[Print to exit]:" << std::endl;
   char c;

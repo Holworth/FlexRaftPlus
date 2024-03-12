@@ -1025,7 +1025,6 @@ void RaftState::tryUpdateCommitIndex() {
 
     if (agree_cnt >= commit_require_k + livenessLevel() &&
         lm_->GetSingleLogEntry(N)->Term() == CurrentTerm()) {
-      SetCommitIndex(N);
       // Index N is committed, no need to track them any more
       // removeLastReplicateVersionAt(N);
       // removeTrackVersionOfAll(N);
@@ -1039,6 +1038,7 @@ void RaftState::tryUpdateCommitIndex() {
         commit_elapse_time_[N] = dura.count();
         printf("Commit Index %u time: %lu us\n", N, commit_elapse_time_[N]);
       }
+      SetCommitIndex(N);
     }
   }
 }

@@ -58,6 +58,9 @@ target_link_libraries(leaderpre_bench kv gflags)
 add_executable(follower_recover_bench follower_recover_bench.cc)
 target_link_libraries(follower_recover_bench kv gflags)
 
+add_executable(slownodes_bench slownodes_bench.cc)
+target_link_libraries(slownodes_bench kv gflags)
+
 
 
 
